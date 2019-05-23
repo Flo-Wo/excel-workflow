@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 def getExponent(number):
     """
     @param number
@@ -68,16 +69,30 @@ def getSignDigit(number):
     @return beginning index of the position which should be rounded,
     beginning with index 0 of the number
     """
+    #Fallunterscheidung, ob vor oder nach dem Komma gerundet werden
+    # Bsp 12,xxx bzw 1,xxx
+    index = 0
     mantisse = number[0]
-    index = getComma(mantisse)
-    #print("comma: " + str(index))
+    #print('mantisse: ' + str(mantisse))
+    indexComma = getComma(mantisse)
+    #print("comma: " + str(indexComma))
     tempstrmant = str(mantisse)
-    for i in range(1, len(tempstrmant)):
-        #print(i)
-        #print("test: " + str(tempstrmant[i + index]))
-        if (tempstrmant[i + index] != '0'):
-            break
-    return(index + i)
+    # führende Null
+    #print('test: ' + tempstrmant[0])
+    if tempstrmant[0] == '0':
+        for i in range(1, len(tempstrmant)):
+            #print(i)
+            #print("test: " + str(tempstrmant[i + index]))
+            if (tempstrmant[i + indexComma] != '0'):
+                break
+        index = indexComma + i
+    # Zahl beginnt nicht mit 0
+    else:
+        # Setze Index auf Anzahl der Stellen vor dem Komma Unterscheide mit 1.xxx oder 21.xx
+        # Siehe dazu Bild
+        # dies entspricht gerade der Stelle mit dem Index 2 - indexComma
+        index = 2 - indexComma
+    return(index)
 
 def gaussNotation(value, uncertainty):
     """
@@ -89,17 +104,33 @@ def gaussNotation(value, uncertainty):
     """
     x = ''
     tempuncertain = str(uncertainty)
-    i = len(tempuncertain) - 1
-    while (i >= 0 and tempuncertain[i] != '0'):
-        #print("test: " + tempuncertain[i])
-        x = tempuncertain[i] + x
-        i = i-1
+    # Beginn am Ende des Strings, da die Zahl 0.xx ist
+    if uncertainty < 1:
+        i = len(tempuncertain) - 1
+        while (i >= 0 and tempuncertain[i] != '0' and tempuncertain[i] != '.'):
+            #print("test: " + tempuncertain[i])
+            x = tempuncertain[i] + x
+            i -= 1
+    # Fehler, bei 1,xx Zahlen
+    elif uncertainty > 10:
+        i = 0
+        while (i < len(tempuncertain) and tempuncertain[i] != '.'): #and tempuncertain[i] != '0'
+            x = x + tempuncertain[i]
+            i += 1
+        # Heraufschieben --> Abstand stimmt
+        x = x + '0'
+    # Zahlen im Bereich 1,xx bis 9,xx
+    else:
+        for j in range(0, len(tempuncertain)):
+            if tempuncertain[j] != '.':
+                x = x + tempuncertain[j]
+
     return(str(value) + '(' + x + ')')
 
 
 
-# value1 = float(9.656789 * 10**-10)
-# value2 = float(0.0876 * 10**-12)
+# value1 = float(5.22308 * 10**-6)
+# value2 = float(7.59302 * 10**-9)
 # #print(value1, value2)
 #
 # newvalue1 = numberToArray(value1)
@@ -113,8 +144,8 @@ def gaussNotation(value, uncertainty):
 # print(np.round(numbers[1][0], significantdigit))
 # print(np.round(numbers[0][0], significantdigit))
 # #print(type(np.round(numbers[0][0], significantdigit)))
-# print(gaussNotation(test2, test1))
-#
+# print(str(gaussNotation(test2, test1)) + 'E' + str(int(numbers[1][1])) )
+# #
 # endvalue1 = [ np.round(numbers[0][0], significantdigit), numbers[0][1] ]
 # endvalue2 = [ np.round(numbers[1][0], significantdigit), numbers[1][1] ]
 # #print(str(endvalue1[0]*np.power(10,endvalue1[1])), str(endvalue2[0]*np.power(10,endvalue2[1])))
