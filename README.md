@@ -4,6 +4,7 @@ This is a program to return the Gauss' notation of values and their uncertaintie
 For example, let v be the value and u(v) his uncertainty
 
 v = 6,1819E-06
+
 u(v) = 1,41224E-08
 
 then the Gauss notation of this value is 6.182(14)E-6.
