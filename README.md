@@ -1,7 +1,8 @@
 # Workflow for measurement uncertainty
 
 This is a program to return the Gauss' notation of values and their uncertainties.
-For example, let v be the value and u(v) his uncertainty
+
+For example, let v be the value and u(v) his uncertainty:
 
 v = 6,1819E-06
 
