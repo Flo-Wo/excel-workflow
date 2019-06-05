@@ -1,4 +1,4 @@
-# Workflow for measurement uncertainty
+# Workflow for measurement uncertainty (Excel)
 
 This is a program to return the Gauss' notation of values and their uncertainties.
 
