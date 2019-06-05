@@ -127,25 +127,3 @@ def gaussNotation(value, uncertainty):
 
     return(str(value) + '(' + x + ')')
 
-
-
-# value1 = float(5.22308 * 10**-6)
-# value2 = float(7.59302 * 10**-9)
-# #print(value1, value2)
-#
-# newvalue1 = numberToArray(value1)
-# newvalue2 = numberToArray(value2)
-# numbers = equalExponent(newvalue1, newvalue2)
-# print(numbers)
-# significantdigit = getSignDigit(numbers[1])
-# #print(significantdigit)
-# test1 = np.round(numbers[1][0], significantdigit)
-# test2 = np.round(numbers[0][0], significantdigit)
-# print(np.round(numbers[1][0], significantdigit))
-# print(np.round(numbers[0][0], significantdigit))
-# #print(type(np.round(numbers[0][0], significantdigit)))
-# print(str(gaussNotation(test2, test1)) + 'E' + str(int(numbers[1][1])) )
-# #
-# endvalue1 = [ np.round(numbers[0][0], significantdigit), numbers[0][1] ]
-# endvalue2 = [ np.round(numbers[1][0], significantdigit), numbers[1][1] ]
-# #print(str(endvalue1[0]*np.power(10,endvalue1[1])), str(endvalue2[0]*np.power(10,endvalue2[1])))
