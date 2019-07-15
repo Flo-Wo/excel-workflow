@@ -127,3 +127,11 @@ def gaussNotation(value, uncertainty):
 
     return(str(value) + '(' + x + ')')
 
+def getStartIndex(indexRange):
+    i = 1
+    startIndex = ''
+    while indexRange[i] != ':':
+        startIndex = startIndex + str(indexRange[i])
+        i += 1
+    return(startIndex)
+
